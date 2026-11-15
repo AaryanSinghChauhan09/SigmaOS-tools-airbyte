@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 //! Airbyte ELT Connector Engine for SigmaOS
 use std::collections::HashMap;
 
