@@ -3,7 +3,7 @@ name = "SigmaOS-tools-airbyte"
 tier = 2
 stability = "scaffold"
 language = "rust"
-description = "tools-airbyte component"
+description = "SigmaOS Tools Airbyte - ELT data pipeline connector engine"
 upstream = []
 
 [contract]
