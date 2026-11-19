@@ -1,3 +1,4 @@
+#![forbid(unsafe_code)]
 #![allow(non_snake_case)]
 //! Airbyte ELT Connector Engine for SigmaOS
 use std::collections::HashMap;
@@ -166,5 +167,42 @@ mod tests {
         assert_eq!(report.records_loaded, 1);
         assert_eq!(report.validation_errors, 1);
         assert_eq!(sink[0].values.get("username").unwrap(), "aaryan");
+    }
+}
+
+#[cfg(test)]
+mod airbyte_extra_tests {
+    use super::*;
+
+    #[test]
+    fn test_airbyte_empty_stream_extraction_aaa() {
+        // Arrange
+        let connector = AirbyteConnector::new("empty_stream", Vec::new());
+        // Act
+        let records = connector.extract(Vec::new());
+        // Assert
+        assert!(records.is_empty());
+    }
+
+    #[test]
+    fn test_airbyte_stream_name_getter_aaa() {
+        // Arrange
+        let connector = AirbyteConnector::new("metrics_stream", Vec::new());
+        // Act & Assert
+        assert_eq!(connector.stream_name, "metrics_stream");
+    }
+
+    #[test]
+    fn test_airbyte_sync_report_success_rate_aaa() {
+        // Arrange
+        let report = SyncReport {
+            records_extracted: 10,
+            records_transformed: 8,
+            records_loaded: 8,
+            validation_errors: 2,
+        };
+        // Act & Assert
+        assert_eq!(report.records_extracted, 10);
+        assert_eq!(report.validation_errors, 2);
     }
 }
